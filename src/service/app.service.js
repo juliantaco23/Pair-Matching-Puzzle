@@ -1,6 +1,10 @@
-class Game {
-  test(req, res) {
-    res.send("Entré");
+const Game = require('../models/game');
+
+class App {
+  
+  async test(req, res) {
+    const game = new Game();
+    res.status(200).json(game.setImageList());
   }
 
   getRandomImage(req, res) {
@@ -18,4 +22,4 @@ class Game {
   }
 }
 
-module.exports = Game;
+module.exports = App;

@@ -12,10 +12,10 @@ class Game {
     }
     this.#cardCount = cardCount;
     console.log(this.#cardCount)
-    this.#setImageList().then(() => this.#formatCardList);
+    this.setImageList().then(() => this.#formatCardList);
   }
 
-  async #setImageList() {
+  async setImageList() {
     const helper = new Helper();
     const response = await helper.fetchGameImages(this.#cardCount);
     this.#imagesList = response.data;
