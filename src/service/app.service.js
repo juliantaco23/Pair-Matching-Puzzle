@@ -2,9 +2,12 @@ const Game = require('../models/game');
 
 class App {
   
-  async test(req, res) {
+  test(req, res) {
     const game = new Game();
-    res.status(200).json(game.setImageList());
+    setTimeout(() => {
+      console.log(game.getCardList());
+      res.status(200).json(game.getCardList());
+    }, 2000)
   }
 
   getRandomImage(req, res) {
@@ -13,10 +16,14 @@ class App {
   }
 
   setLevel(req, res, next) {
-    const { id } = req.params;
-    if (id >= 1 && id <= 3) {
-      id && res.status(200).json({ Level: id });
-    } else {
+    const game = new Game();
+    const { id } = Number(req.params);
+    if (id === 1) {
+      setTimeout(() => {
+        console.log(game.getCardList());
+        res.status(200).json(game.getCardList());
+      }, 2000)
+      } else {
       next();
     }
   }

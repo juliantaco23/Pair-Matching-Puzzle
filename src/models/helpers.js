@@ -1,4 +1,5 @@
 const axios = require('axios');
+const crypto = require('crypto');
 const Config = require('../config/config');
 class Helper {
   async fetchGameImages(cardCount) {
@@ -10,6 +11,21 @@ class Helper {
   getRandomNum(max) {
     return Math.floor(Math.random() * max);
   }
+
+  shuffleList(array) {
+    let currentIndex = array.length;
+    let randomIndex;
+  
+    while (currentIndex != 0) {
+      randomIndex = this.getRandomNum(currentIndex);
+      currentIndex--;
+  
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  }
+
+  
 }
 
 module.exports = Helper;
