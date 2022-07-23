@@ -45,11 +45,11 @@ class Game {
     return false;
   }
 
-  get id(){
-    return this.#attempts;
+  getId(){
+    return this.#id;
   }
 
-  get attempts() {
+  getAttempts() {
     return this.#attempts;
   }
 
@@ -60,7 +60,7 @@ class Game {
     }
   }
 
-  get cardList() {
+  getCardList() {
     return this.#cardList;
   }
 }
