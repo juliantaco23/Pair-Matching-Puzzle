@@ -3,10 +3,11 @@ const crypto = require('crypto');
 const fs = require('fs');
 var path = require('path');
 
+const Config = require('../config/config');
 class Helper {
   static async fetchGameImages(cardCount) {
     const randomPage = Helper.getRandomNum(5);
-    const url = `https://picsum.photos/v2/list?page=${randomPage}&limit=${cardCount / 2}`;
+    const url = `${Config.URL_IMAGE}?page=${randomPage}&limit=${cardCount / 2}`;    
     return axios.get(url);
   }
 

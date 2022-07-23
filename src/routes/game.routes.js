@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const Game = require('../service/game.service');
+const App = require('../service/app.service');
 
-const game = new Game();
+const app = new App();
 
-router.get('/', game.test);
-router.get('/game/:id', game.getRandomImage);
-router.get('/game/level/:id', game.setLevel);
+router.get('/game/level/:id', app.setLevel);
 
 module.exports = router;
