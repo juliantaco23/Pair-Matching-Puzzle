@@ -1,29 +1,17 @@
-const Game = require('../models/game');
+const Game = require("../models/game");
 
 class App {
-  
-  test(req, res) {
+  async setLevel(req, res, next) {
     const game = new Game();
-    setTimeout(() => {
-      console.log(game.getCardList());
-      res.status(200).json(game.getCardList());
-    }, 2000)
-  }
-
-  getRandomImage(req, res) {
-    const { id } = req.params;
-    id && res.status(200).json(id);
-  }
-
-  setLevel(req, res, next) {
-    const game = new Game();
-    const { id } = Number(req.params);
+    await game.configGameImages();
+    const id = Number(req.params.id);
     if (id === 1) {
-      setTimeout(() => {
-        console.log(game.getCardList());
-        res.status(200).json(game.getCardList());
-      }, 2000)
-      } else {
+      try {
+        await res.status(200).json(game.getCardList());
+      } catch (error) {
+        console.log({ error });
+      }
+    } else {
       next();
     }
   }
