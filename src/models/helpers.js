@@ -1,5 +1,7 @@
 const axios = require('axios');
 const crypto = require('crypto');
+const fs = require('fs');
+var path = require('path');
 
 class Helper {
   static async fetchGameImages(cardCount) {
@@ -27,6 +29,29 @@ class Helper {
 
   static generateUUID() {
     return crypto.randomUUID();
+  }
+
+  static writeDataToFile(dataObj) {
+    const jsonContent = JSON.stringify(dataObj);
+
+    const jsonPath = path.join(__dirname, '..', 'persistence', `${dataObj.id}.json`);
+
+    fs.writeFile(jsonPath, jsonContent, 'utf8', (err) => {
+      if (err) {
+        // Do something useful...
+      }
+    });   
+  }
+
+  static fetchDataFromFile(fileName) {
+    const jsonPath = path.join(__dirname, '..', 'persistence', fileName);
+    return fs.readFileSync(jsonPath, 'utf8');
+  }
+
+  static getGameState(gameId) {
+    const fileName = gameId.concat('.json');
+    const jsonString = Helper.fetchDataFromFile(fileName);
+    return JSON.parse(jsonString);
   }
 }
 

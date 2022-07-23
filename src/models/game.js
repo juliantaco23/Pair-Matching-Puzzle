@@ -20,8 +20,9 @@ class Game {
   }
 
   async configGameImages() {
-    await this.#setImageList()
+    await this.#setImageList();
     this.#setCardList();
+    this.#writeGameDataToJson();
   }
 
   async #setImageList() {
@@ -62,6 +63,15 @@ class Game {
 
   getCardList() {
     return this.#cardList;
+  }
+
+  #writeGameDataToJson() {
+    const jsonData = {
+      id: this.#id,
+      currentAttempts: this.#attempts,
+      cardList: this.#cardList,
+    };
+    Helper.writeDataToFile(jsonData);
   }
 }
 
