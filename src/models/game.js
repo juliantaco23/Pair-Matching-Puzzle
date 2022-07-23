@@ -29,14 +29,38 @@ class Game {
     const response = await Helper.fetchGameImages(this.#cardCount);
     this.#imagesList = response.data.map(img => {
       const {id, download_url} = img;
-      return {id, urlImg: download_url};
+      return {
+        id,
+        urlImg: download_url,
+        found: false,
+      };
     })
-    return;
   }
 
   #setCardList() {
     this.#cardList = [...this.#imagesList, ...this.#imagesList];
     Helper.shuffleList(this.#cardList);
+    this.#cardList = this.#addClientId();
+  }
+
+  #addClientId() {
+    return this.#cardList.map((card, idx) => {
+      return {
+        id: card.id,
+        urlImg: card.urlImg,
+        found: card.found,
+        clientId: idx + 1
+      }
+    });
+  }
+
+  #writeGameDataToJson() {
+    const jsonData = {
+      id: this.#id,
+      currentAttempts: this.#attempts,
+      cardList: this.#cardList,
+    };
+    Helper.writeDataToFile(jsonData);
   }
 
   #isMaxAttempt() {
@@ -65,14 +89,6 @@ class Game {
     return this.#cardList;
   }
 
-  #writeGameDataToJson() {
-    const jsonData = {
-      id: this.#id,
-      currentAttempts: this.#attempts,
-      cardList: this.#cardList,
-    };
-    Helper.writeDataToFile(jsonData);
-  }
 }
 
 module.exports = Game;
