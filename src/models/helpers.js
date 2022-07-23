@@ -52,7 +52,9 @@ class Helper {
   static getGameState(gameId) {
     const fileName = gameId.concat('.json');
     const jsonString = Helper.fetchDataFromFile(fileName);
-    return JSON.parse(jsonString);
+    const jsonObject = JSON.parse(jsonString);
+    jsonObject.cardList.forEach(card => delete card.id);
+    return jsonObject;
   }
 }
 
