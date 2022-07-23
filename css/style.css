@@ -1,0 +1,42 @@
+body{
+    font-family: 'Edu VIC WA NT Beginner';
+    background-color: #B4B8AB;
+}
+
+.ui-info{
+    height: 100px;
+    display: flex;
+}
+
+.ui-title{
+    text-align: center;
+    width: 100%;
+}
+
+.level{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0;
+}
+
+.ui-button{
+    width: 300px;
+    height: 50px;
+    margin: 0.2rem 0;
+    cursor: pointer;
+    background-color: #DB1F48;
+    color: #fff;
+    transition: background-color 1s;
+}
+
+.ui-button:hover {
+  background-color: #004369;
+}
+
+.ui-button:focus,
+.ui-button:active {
+  background-color: black;
+  transition: none;
+}
