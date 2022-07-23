@@ -8,18 +8,24 @@ class Game {
   #attempts; 
   
   constructor(cardCount = 12) {
+
+    this.#id = Helper.generateUUID();
+
     if (typeof cardCount !== 'number' || cardCount % 2 !== 0) {
       cardCount = 12;
     }
+
     this.#cardCount = cardCount;
-    this.#attemps = 0;
-    this.#setImageList()
-      .then(() => this.#setCardList());
+    this.#attempts = 0;
+  }
+
+  async configGameImages() {
+    await this.#setImageList()
+    this.#setCardList();
   }
 
   async #setImageList() {
-    const helper = new Helper();
-    const response = await helper.fetchGameImages(this.#cardCount);
+    const response = await Helper.fetchGameImages(this.#cardCount);
     this.#imagesList = response.data.map(img => {
       const {id, download_url} = img;
       return {id, urlImg: download_url};
@@ -28,15 +34,19 @@ class Game {
   }
 
   #setCardList() {
-    const helper = new Helper();
     this.#cardList = [...this.#imagesList, ...this.#imagesList];
-    helper.shuffleList(this.#cardList);
+    Helper.shuffleList(this.#cardList);
   }
 
   #isMaxAttempt() {
     if (this.#attempts >= this.#cardCount) {
       return true;
     }
+    return false;
+  }
+
+  get id(){
+    return this.#attempts;
   }
 
   get attempts() {
@@ -44,8 +54,10 @@ class Game {
   }
 
   addOneAttemp() {
-    return this.#attempts ++;
-    this.#isMaxAttempt()
+    this.#attempts ++;
+    if (this.#isMaxAttempt()) {
+      throw new Error('The maximum number of attemps has been made');
+    }
   }
 
   get cardList() {
